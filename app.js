@@ -1,8 +1,15 @@
 const express = require('express');
 const app = express()
 
+const pokemon = require('./models/pokemon.json');
+// console.log(pokemon[0]);
+
 app.get('/', (req, res) => {
     res.send('Welcome 99 Pokemon')
+})
+
+app.get('/pokemon', (req, res) => {
+    res.send(`${JSON.stringify(pokemon)}`)
 })
 
 app.get('/:verb/:adjective/:noun', (req, res) => {
@@ -17,8 +24,8 @@ app.get('/bugs', (req, res) => {
 app.get('/bugs/:numberOfBugs', (req, res) => {
     const { numberOfBugs } = req.params
     Number(numberOfBugs) < 200 ? 
-        res.send(`${numberOfBugs} little bugs in the code <a href=${Number(numberOfBugs) + 2} >Pull one down, patch it around`)
-    : res.send(`<a href="/bugs">Too many bugs!! Start over!</a>`)
+        res.send(`<h1>${numberOfBugs} little bugs in the code <a href=${Number(numberOfBugs) + 2} >Pull one down, patch it around</h1>`)
+    : res.send(`<h1><a href="/bugs">Too many bugs!! Start over!</a></h1>`)
 })
 
 
