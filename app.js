@@ -12,6 +12,15 @@ app.get('/pokemon', (req, res) => {
     res.send(`${JSON.stringify(pokemon)}`)
 })
 
+app.get('/pokemon/:indexOfArray', (req, res) => {
+    const { indexOfArray } = req.params
+    if (pokemon[indexOfArray]) {
+        res.send(`${JSON.stringify(pokemon[indexOfArray])}`)
+    } else {
+        res.send(`Sorry, no pokemon found at ${indexOfArray}`)
+    }
+})
+
 app.get('/:verb/:adjective/:noun', (req, res) => {
     const { verb, adjective, noun } = req.params
     res.send(`Congratulations on starting a new project called ${verb}-${adjective}-${noun}!`)
