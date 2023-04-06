@@ -50,6 +50,18 @@ app.get("/pokemon/:indexOfArray", (req, res) => {
   }
 });
 
+app.get("/pokemon-pretty", (req, res) => {
+  res.send(`<ul>${pokemon.map((singleMon, index) => {
+    return `<li><a href=/pokemon-pretty/${index} >${singleMon.name}</a></li>`;
+  })}</ul>`);
+});
+
+app.get("/pokemon-pretty/:indexOfArray", (req, res) => {
+  const {indexOfArray} = req.params;
+  res.send(`<h1>${pokemon[indexOfArray].name}</h1>
+  <img alt=${pokemon[indexOfArray].name} src=${pokemon[indexOfArray].img} />`)
+})
+
 app.get("*", (req, res) => {
   res.status(404).send("This is not the page you are looking for");
 });
