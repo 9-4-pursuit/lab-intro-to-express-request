@@ -85,7 +85,7 @@ Confirm you are able to bring in the data from the `pokemon.json` file
 **app.js**
 
 ```js
-const pokemon = require("./pokemon.json");
+const pokemon = require("./models/pokemon.json");
 console.log(pokemon[0]);
 ```
 
