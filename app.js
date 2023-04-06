@@ -27,17 +27,28 @@ app.get("/bugs/:numberOfBugs", (req, res) => {
 
 app.get("/pokemon", (req, res) => {
   res.send(pokemon);
-})
+});
+
+app.get("/pokemon/search", (req, res) => {
+  const reqName = req.query.name;
+  const foundPokemon = pokemon.find((singleMon) => singleMon.name.toLowerCase() === reqName.toLowerCase());
+
+  if (foundPokemon) {
+    res.send([foundPokemon]);
+  } else {
+    res.send([]);
+  }
+});
 
 app.get("/pokemon/:indexOfArray", (req, res) => {
   const {indexOfArray} = req.params;
 
   if (pokemon[indexOfArray]){
-    res.send(pokemon[indexOfArray])
+    res.send(pokemon[indexOfArray]);
   } else {
-    res.send(`Sorry, no pokemon found at ${indexOfArray}`)
+    res.send(`Sorry, no pokemon found at ${indexOfArray}`);
   }
-})
+});
 
 app.get("*", (req, res) => {
   res.status(404).send("This is not the page you are looking for");
