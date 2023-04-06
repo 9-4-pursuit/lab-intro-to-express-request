@@ -1,14 +1,22 @@
+// DEPENDENCIES
 const express = require("express");
+const pokemon = require("./models/pokemon.json")
+
+// CONFIG
 const app = express()
 
+// ROUTES
 app.get("/", (req, res) => {
     res.send("Welcome 99 Pokemon")
 })
 
+// WILDCARD VARIABLES
 app.get("/:verb/:adjective/:noun", (req, res) => {
     const { verb, adjective, noun } = req.params;
     res.send(`Congratulations on starting a new project called ${verb}-${adjective}-${noun}!`);
 })
+
+// 99 BUGGIES CODE
 
 app.get("/bugs", (req, res) => {
     res.send(
@@ -27,9 +35,24 @@ app.get("/bugs/:numberOfBugs", (req, res) => {
      ? "Pull one down, patch it around"
      : "Too many bugs!! Start over!"}</a>`
     );
-     });
+});
 
-     
+// POKEMON, GOTTA CATCH EM' ALL
+app.get("/pokemon", (req, res) => {
+    res.send(pokemon);
+})
+
+app.get("/pokemon/search", (req, res) => {
+    const { name } = req.query;
+    const selectPokemon = pokemon.find((pokemon) => pokemon.name.toLowerCase() === name.toLowerCase());
+    res.send(selectPokemon ? [selectPokemon] : []);
+})
+
+app.get("/pokemon/:index", (req, res) => {
+    const { index } = req.params;
+    res.send(pokemon[Number(index)] || "Sorry, no pokemon found at " + index )
+})
+
 
 app.get("*", (req, res) => {
     res.status(404).send("This is not the page you are looking for")
