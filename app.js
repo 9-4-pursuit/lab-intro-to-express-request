@@ -21,6 +21,12 @@ app.get('/pokemon/:indexOfArray', (req, res) => {
     }
 })
 
+app.get('/pokemon/search', (req, res) => {
+    // const { searchQuery } = req.query
+    pokemon.map(([key, value]) => )
+    res.send(req.query)
+})
+
 app.get('/:verb/:adjective/:noun', (req, res) => {
     const { verb, adjective, noun } = req.params
     res.send(`Congratulations on starting a new project called ${verb}-${adjective}-${noun}!`)
@@ -37,10 +43,8 @@ app.get('/bugs/:numberOfBugs', (req, res) => {
     : res.send(`<h1><a href="/bugs">Too many bugs!! Start over!</a></h1>`)
 })
 
-
-
-// app.get('*', (req, res) => {
-//     res.status(404).send('This is not the page you are looking for')
-// })
+app.get('*', (req, res) => {
+    res.status(404).send('This is not the page you are looking for')
+})
 
 module.exports = app;
