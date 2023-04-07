@@ -14,7 +14,6 @@ res.send("Welcome 99 Pokemon")
 })
 
 
-
 // New project generator
 
 app.get("/:verb/:adjective/:noun", (req, res) => {
@@ -55,19 +54,34 @@ app.get("/pokemon", (req, res) => {
     res.send(pokemon);
   });
   
-  app.get("/pokemon/:index", (req, res) => {
-    const index = req.params.index;
-    const pokemonAtIndex = pokemon[index];
+ 
+  
+ 
+    // Route to search for a Pokemon by name
+    app.get("/pokemon/search", (req, res) => {
+  const { name } = req.query;
+  const selectPokemon = pokemon.find(
+    (pokemon) => pokemon.name.toLowerCase() === name.toLowerCase()
+  );
+  if (!selectPokemon) {
+    res.json([]);
+  } else {
+    res.json([selectPokemon]);
+  }
+});
 
-  if (pokemonAtIndex) {
-    res.send(pokemonAtIndex);
-    } else {
-      res.send(`Sorry, no pokemon found at ${index}`);
-    }
-  });
-  
-  
-  
+app.get("/pokemon/:index", (req, res) => {
+  const index = req.params.index;
+  const pokemonAtIndex = pokemon[index];
+
+if (pokemonAtIndex) {
+  res.send(pokemonAtIndex);
+  } else {
+    res.send(`Sorry, no pokemon found at ${index}`);
+  }
+});
+
+
 
 // Error page
 app.get("*", (req, res) => {
