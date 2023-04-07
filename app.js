@@ -91,9 +91,40 @@ app.get("/pokemon-pretty", (req, res) => {
 app.get("/pokemon-pretty/:index", (req, res) => {
   const index = parseInt(req.params.index);
   const p = pokemon[index];
-  const html = `<h1>${p.name}</h1><img src="${p.img}"><p>${p.misc.classification}</p>`;
+  const html = `<html>
+    <head>
+      <title>Pokemon Details</title>
+      <style>
+        body {
+          text-align: center;
+          background-color: #f0f0f0;
+          font-family: Arial, sans-serif;
+        }
+        h1 {
+          color: #ff0000;
+        }
+        img {
+          max-width: 100%;
+          height: auto;
+          border: 5px solid #fff;
+          box-shadow: 0 0 10px #ccc;
+        }
+        p {
+          font-size: 18px;
+          font-weight: bold;
+          color: #000;
+        }
+      </style>
+    </head>
+    <body>
+      <h1>${p.name}</h1>
+      <img src="${p.img}">
+      <p>${p.misc.classification}</p>
+    </body>
+  </html>`;
   res.send(html);
 });
+
 
 // Error page
 app.get("*", (req, res) => {
