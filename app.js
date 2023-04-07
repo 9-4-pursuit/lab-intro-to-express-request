@@ -55,7 +55,19 @@ app.get("/pokemon", (req, res) => {
     res.send(pokemon);
   });
   
+  app.get("/pokemon/:index", (req, res) => {
+    const index = req.params.index;
+    const pokemonAtIndex = pokemon[index];
 
+  if (pokemonAtIndex) {
+    res.send(pokemonAtIndex);
+    } else {
+      res.send(`Sorry, no pokemon found at ${index}`);
+    }
+  });
+  
+  
+  
 
 // Error page
 app.get("*", (req, res) => {
