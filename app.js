@@ -54,19 +54,17 @@ app.get("/pokemon", (req, res) => {
     res.send(pokemon);
   });
   
- 
-  
- 
-    // Route to search for a Pokemon by name
-    app.get("/pokemon/search", (req, res) => {
+
+// Route to search for a Pokemon by name
+app.get("/pokemon/search", (req, res) => {
   const { name } = req.query;
   const selectPokemon = pokemon.find(
     (pokemon) => pokemon.name.toLowerCase() === name.toLowerCase()
   );
   if (!selectPokemon) {
-    res.json([]);
+    res.send([]);
   } else {
-    res.json([selectPokemon]);
+    res.send([selectPokemon]);
   }
 });
 
@@ -79,6 +77,13 @@ if (pokemonAtIndex) {
   } else {
     res.send(`Sorry, no pokemon found at ${index}`);
   }
+});
+
+// Route to display a list of all the Pokemon as an unordered list of links
+app.get("/pokemon-pretty", (req, res) => {
+  const listItems = pokemon.map((p, index) => `<li><a href="/pokemon/${index}">${p.name}</a></li>`);
+  const html = `<ul>${listItems.join("")}</ul>`;
+  res.send(html);
 });
 
 
