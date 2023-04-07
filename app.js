@@ -81,12 +81,19 @@ if (pokemonAtIndex) {
 
 // Route to display a list of all the Pokemon as an unordered list of links
 app.get("/pokemon-pretty", (req, res) => {
+  
   const listItems = pokemon.map((p, index) => `<li><a href="/pokemon/${index}">${p.name}</a></li>`);
   const html = `<ul>${listItems.join("")}</ul>`;
-  res.send(html);
+  res.send(`<h1>here is a List of Them All</h1>${html}`);
 });
 
-
+// Route to display details of a single Pokemon
+app.get("/pokemon-pretty/:index", (req, res) => {
+  const index = parseInt(req.params.index);
+  const p = pokemon[index];
+  const html = `<h1>${p.name}</h1><img src="${p.img}"><p>${p.misc.classification}</p>`;
+  res.send(html);
+});
 
 // Error page
 app.get("*", (req, res) => {
