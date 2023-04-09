@@ -12,6 +12,17 @@ app.get('/pokemon', (req, res) => {
     res.send(`${JSON.stringify(pokemon)}`)
 })
 
+app.get('/pokemon/search', (req, res) => {
+    const searchQuery = req.query.name
+    const foundPokemon = pokemon.find((poke) => poke.name.toLowerCase() === searchQuery.toLowerCase());
+    
+    if (foundPokemon) {
+        res.send([foundPokemon])
+    } else {
+        res.send([])
+    }
+})
+
 app.get('/pokemon/:indexOfArray', (req, res) => {
     const { indexOfArray } = req.params
     if (pokemon[indexOfArray]) {
@@ -19,12 +30,6 @@ app.get('/pokemon/:indexOfArray', (req, res) => {
     } else {
         res.send(`Sorry, no pokemon found at ${indexOfArray}`)
     }
-})
-
-app.get('/pokemon/search', (req, res) => {
-    // const { searchQuery } = req.query
-    pokemon.map(([key, value]) => )
-    res.send(req.query)
 })
 
 app.get('/:verb/:adjective/:noun', (req, res) => {
