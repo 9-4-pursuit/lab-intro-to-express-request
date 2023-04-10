@@ -36,6 +36,38 @@ app.get("/pokemon", (req, res) => {
 })
 
 
+app.get("/pokemon/search", (req, res) => {
+
+    const { name } = req.query;
+    const finalPokemon = pokemon.find((poke) => poke.name.toLowerCase() === name.toLowerCase());
+
+    if(finalPokemon){
+        res.send([finalPokemon]);
+    }else {
+        res.send([]);
+    }
+
+})
+
+app.get("/pokemon/:index", (req, res) => {
+    const {index} = req.params
+
+    if(pokemon[Number(index)]){
+        res.send(pokemon[Number(index)])
+    }else {
+        res.send("Sorry, no pokemon found at " + index )
+    }
+    
+})
+
+
+
+
+app.get("*", (req, res) => {
+    res.status(404).send("This is not the page you are looking for")
+})
+
+
 
 
 
@@ -43,3 +75,5 @@ app.get("/pokemon", (req, res) => {
 
 
 module.exports = app
+
+
