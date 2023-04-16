@@ -1,8 +1,10 @@
-// const app = require("./app");
+const app = require("./app");
 
-// require("dotenv").config();
-// const PORT = process.env.PORT;
+require("dotenv").config();
+const PORT = process.env.PORT || 8888;
 
-// app.listen(PORT, (req, res) => {
-//   console.log("welcome to today's lab");
-// });
+app.listen(PORT, () => {
+  console.log(`Listening on PORT: ${PORT}`);
+});
+
+module.exports = app;
