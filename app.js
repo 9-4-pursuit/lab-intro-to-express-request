@@ -26,22 +26,14 @@ app.get("/bugs", (req, res) => {
 // /bugs/:numberOfBugs
 app.get("/bugs/:numberOfBugs", (req, res) => {
   let { numberOfBugs } = req.params;
-  console.log(numberOfBugs);
-  console.log("HELLO");
-  if (+numberOfBugs >= 200) {
-    res.send(`  <h1>"${numberOfBugs} little bugs in the code"</h1>
-    <a href="/bugs">"Too many bugs!! Start over!"</a>`);
-  } else {
-    let nextNumBugs = +numberOfBugs + 1;
-    res.send(
-      `
-      <h1>"${numberOfBugs} little bugs in the code"</h1>
-      
-      <a href="/bugs/${nextNumberOfBugs}">"Pull one down, patch it around"</a>
-  
-  `
-    );
-  }
+  const numBug = +numberOfBugs;
+
+  res.send(`
+      <h1>"${numBug} little bugs in the code"</h1>
+      <a href=/"${numBug < 200 ? numBug + 2 : "./"}">${
+    numBug > 200 ? "Too many bugs!! Start over!" : "Too many bugs!! Start over!"
+  }</a>
+    `);
 });
 
 // POKEMON
