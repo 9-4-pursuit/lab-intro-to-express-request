@@ -1,10 +1,8 @@
-const { query } = require("express");
 const express = require("express");
 const app = express();
 
 //import pokemon
-const pokemon = require("/Users/laurawilliams/module-4/labs/express-request/models/pokemon.json");
-console.log(pokemon[0]);
+const pokemon = require("./models/pokemon.json");
 
 //New Name Generator
 app.get("/:verb/:adj/:noun", (req, res) => {
@@ -30,15 +28,16 @@ app.get("/bugs/:numberOfBugs", (req, res) => {
   let { numberOfBugs } = req.params;
   console.log(numberOfBugs);
   console.log("HELLO");
-  if (numberOfBugs >= 200) {
-    res.send(`<a href="/bugs">"Too many bugs!! Start over!"</a>`);
-  } else if (numberOfBugs < 200) {
+  if (+numberOfBugs >= 200) {
+    res.send(`  <h1>"${numberOfBugs} little bugs in the code"</h1>
+    <a href="/bugs">"Too many bugs!! Start over!"</a>`);
+  } else {
     let nextNumBugs = +numberOfBugs + 1;
     res.send(
       `
       <h1>"${numberOfBugs} little bugs in the code"</h1>
       
-  <a href='/bugs/${nextNumBugs}'> Pull one down, patch it around</a>
+      <a href="/bugs/${nextNumberOfBugs}">"Pull one down, patch it around"</a>
   
   `
     );
@@ -55,11 +54,25 @@ app.get("/", (req, res) => {
 app.get("/pokemon", (req, res) => {
   res.send(pokemon);
 });
-//Pokemon by index
+
+//Search
+app.get("/pokemon/search", (req, res) => {
+  const { name } = req.query;
+
+  const result = pokemon.find(
+    (poke) => poke.name.toLowerCase() === name.toLowerCase()
+  );
+
+  if (result) {
+    res.send([result]);
+  } else {
+    res.send([]);
+  }
+});
+
+//Index Search
 app.get("/pokemon/:indexOfArray", (req, res) => {
   const { indexOfArray } = req.params;
-  console.log(req.params);
-  console.log("TEST");
 
   if (pokemon[indexOfArray]) {
     res.send(pokemon[indexOfArray]);
