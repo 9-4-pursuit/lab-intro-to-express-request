@@ -40,11 +40,20 @@ app.get("/pokemon/search", (req, res) => {
   }
 });
 
+// app.get("/pokemon/:index", (req, res) => {
+//   const { index } = req.params
+//   if (pokemon[Number(index)]) {
+//     } else {
+//     res.send("Sorry, no pokemon found at " + index)
+//   }
+// });
+
 app.get("/pokemon/:index", (req, res) => {
   const { index } = req.params
   if (pokemon[Number(index)]) {
-    } else {
-    res.send("Sorry, no pokemon found at " + index)
+      res.send(pokemon[Number(index)])
+  } else {
+      res.send("Sorry, no pokemon found at " + index)
   }
 });
 
