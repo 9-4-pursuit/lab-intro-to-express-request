@@ -8,7 +8,7 @@ app.get("/", (req, res) => {
 
 app.get("/:verb/:adjective/:noun", (req, res) => {
   const { verb, adjective, noun } = req.params
-  req.send(`Congratulations on starting a new project called ${verb}-${adjective}-${noun}`)
+  res.send(`Congratulations on starting a new project called ${verb}-${adjective}-${noun}!`)
 });
 
 app.get("/bugs", (req, res) => {
@@ -37,6 +37,14 @@ app.get("/pokemon/search", (req, res) => {
     res.send([pickThatPokemon]);
   } else {
     res.send([])
+  }
+});
+
+app.get("/pokemon/:index", (req, res) => {
+  const { index } = req.params
+  if (pokemon[Number(index)]) {
+    } else {
+    res.send("Sorry, no pokemon found at " + index)
   }
 });
 
